@@ -1,4 +1,4 @@
-def get_mask_card(card: int) -> str:
+def get_mask_card(card: str) -> str:
     """
     Маскирует номер кредитной карты, оставляя только первые и последние 4 цифры.
 
@@ -7,12 +7,11 @@ def get_mask_card(card: int) -> str:
     :return: Маскированный номер кредитной карты.
     :rtype: str
     """
-    str_card = str(card)
-    mask_card = str_card[0:4] + " " + str_card[4:6] + "** **** " + str_card[-4::]
+    mask_card = card[0:4] + " " + card[4:6] + "** **** " + card[-4::]
     return mask_card
 
 
-def get_mask_invoice(invoice: int) -> str:
+def get_mask_invoice(invoice: str) -> str:
     """
     Маскирует номер счета, оставляя только последние 4 цифры.
 
@@ -21,10 +20,5 @@ def get_mask_invoice(invoice: int) -> str:
     :return: Маскированный номер счета.
     :rtype: str
     """
-    str_invoice = str(invoice)
-    mask_invoice = "**" + str_invoice[-4::]
+    mask_invoice = "**" + invoice[-4::]
     return mask_invoice
-
-
-print(get_mask_card(7000792289606361))
-print(get_mask_invoice(73654108430135874305))
