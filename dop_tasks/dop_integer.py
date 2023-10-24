@@ -8,7 +8,7 @@ def get_max_integer(int_list: list[int]) -> int:
     """
     if len(int_list) < 2:
         return 0
-    
+
     result = 1
     abs_int_list = sorted([abs(number) for number in int_list])
     for number in abs_int_list[-2:]:

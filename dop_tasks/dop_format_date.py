@@ -12,10 +12,10 @@ def get_clean_date(dirty_date: str) -> str:
     """
     try:
         format_date = datetime.fromisoformat(dirty_date)
-        clean_date = datetime.strftime(format_date, '%d.%m.%Y')
+        clean_date = datetime.strftime(format_date, "%d.%m.%Y")
         return clean_date
     except Exception as ex:
-        print(f'Неверный формат даты: {ex}')
+        print(f"Неверный формат даты: {ex}")
 
 
-print(get_clean_date('2018-07-11T02:26:18.671407'))
+print(get_clean_date("2018-07-11T02:26:18.671407"))
