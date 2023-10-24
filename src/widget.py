@@ -1,4 +1,4 @@
-from src.masks import get_mask_card, get_mask_invoice
+from masks import get_mask_card, get_mask_invoice
 
 
 def get_hidden_info(info: str) -> str:

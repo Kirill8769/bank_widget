@@ -16,3 +16,6 @@ def get_clean_date(dirty_date: str) -> str:
         return clean_date
     except Exception as ex:
         print(f'Неверный формат даты: {ex}')
+
+
+print(get_clean_date('2018-07-11T02:26:18.671407'))

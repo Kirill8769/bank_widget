@@ -8,3 +8,11 @@ test_widget_info = [
     "Visa Gold 5999414228426353",
     "Счет 73654108430135874305",
 ]
+
+
+test_string = [
+    ['pop'],
+    ['hello', 'world', 'apple', 'pear', 'banana', 'pop'],
+    ['', 'madam', 'racecar', 'noon', 'level', ''],
+    []
+]

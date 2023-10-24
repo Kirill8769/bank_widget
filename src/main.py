@@ -1,5 +1,5 @@
-from src.test_info import test_widget_info
-from src.widget import get_hidden_info
+from test_data import test_widget_info
+from widget import get_hidden_info
 
 
 def main() -> None:
