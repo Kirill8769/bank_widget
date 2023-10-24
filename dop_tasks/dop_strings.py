@@ -1,6 +1,3 @@
-from src.test_data import test_string
-
-
 def get_filter_strings(string_list: list[list[str]]) -> list:
     """
     Функция фильтрует список строк и возвращает только те строки,
@@ -20,5 +17,12 @@ def get_filter_strings(string_list: list[list[str]]) -> list:
             result_list.append(result)
     return result_list
 
+
+test_string = [
+    ['pop'],
+    ['hello', 'world', 'apple', 'pear', 'banana', 'pop'],
+    ['', 'madam', 'racecar', 'noon', 'level', ''],
+    []
+]
 
 print(get_filter_strings(test_string))
