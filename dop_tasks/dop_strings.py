@@ -1,28 +1,24 @@
-def get_filter_strings(string_list: list[list[str]]) -> list[str]:
+def get_filter_strings(string_list: list[str]) -> list[str]:
     """
     Функция фильтрует список строк и возвращает только те строки,
     в которых первая и последняя буквы совпадают.
 
-    :param string_list (list[list[str]]): Список списков строк для фильтрации.
+    :param string_list: Список строк для фильтрации.
     :return (list): Список строк, в которых первая и последняя буквы совпадают.
     """
     result_list = []
-
-    for words in string_list:
-        result = []
-        for word in words:
-            if word and isinstance(word, str) and word[0] == word[-1]:
-                result.append(word)
-        else:
-            result_list.append(result)
+    for word in string_list:
+        if word and isinstance(word, str) and word[0] == word[-1]:
+            result_list.append(word)
     return result_list
 
 
-test_string = [
-    ['pop'],
-    ['hello', 'world', 'apple', 'pear', 'banana', 'pop'],
-    ['', 'madam', 'racecar', 'noon', 'level', ''],
-    []
+test_string: list[list[str]] = [
+    ["pop"],
+    ["hello", "world", "apple", "pear", "banana", "pop"],
+    ["", "madam", "racecar", "noon", "level", ""],
+    [],
 ]
 
-print(get_filter_strings(test_string))
+for string in test_string:
+    print(get_filter_strings(string))
