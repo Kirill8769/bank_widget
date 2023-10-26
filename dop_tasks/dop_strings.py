@@ -4,7 +4,7 @@ def get_filter_strings(string_list: list[str]) -> list[str]:
     в которых первая и последняя буквы совпадают.
 
     :param string_list: Список строк для фильтрации.
-    :return (list): Список строк, в которых первая и последняя буквы совпадают.
+    :return: Список строк, в которых первая и последняя буквы совпадают.
     """
     result_list = []
     for word in string_list:

@@ -5,12 +5,11 @@ from masks import get_mask_card, get_mask_invoice
 
 def get_hidden_info(info: str) -> str:
     """
-    Скрывает конфиденциальную информацию в строке 'info' и возвращает обработанную строку.
+    Скрывает конфиденциальную информацию в строке 'info'
+    и возвращает обработанную строку.
 
     :param info: Строка, содержащая информацию о карте или счёте.
-    :type info: str
     :return: Обработанная строка с скрытой конфиденциальной информацией.
-    :rtype: str
     """
     name_info = " ".join(info.split()[0:-1])
     num_info = info.split()[-1]
@@ -23,9 +22,7 @@ def get_clean_date(dirty_date: str) -> str | None:
     Преобразует строку даты в формате ISO в формат "DD.MM.YYYY".
 
     :param: dirty_date: Входная строка с датой в формате ISO.
-    :type dirty_date: str
     :return: Отформатированная строка даты в формате "DD.MM.YYYY".
-    :rtype: str
     """
     try:
         format_date = datetime.fromisoformat(dirty_date)

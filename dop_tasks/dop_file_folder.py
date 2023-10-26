@@ -6,11 +6,8 @@ def count_files_and_folders(path: str | None = None, recursive_count: bool = Fal
     Подсчитывает количество файлов и папок в указанной директории.
 
     :param path: Путь до директории, для которой нужно выполнить подсчет (по умолчанию текущая директория).
-    :type path: str
     :param recursive_count: Флаг для включения рекурсивного подсчета файлов и папок (по умолчанию False).
-    :type recursive_count: bool
     :return: Словарь с количеством файлов и папок в директории.
-    :rtype: dict
     """
     if not path:
         path = os.getcwd()
