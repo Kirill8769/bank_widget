@@ -1,77 +1,33 @@
-# написать функцию, которая принимает на вход список словарей и значение для ключа state (опциональный параметр со значением по умолчанию 
-# EXECUTED
-# ) и возвращает новый список, содержащий только те словари, у которых ключ 
-# state
-#  содержит переданное в функцию значение
-# # вход функции
-# [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}, 
-# {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}, 
-# {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, 
-# {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
+from test_data import test_operation_info
 
-# # выход функции (со статусом по умолчанию EXECUTED)
-# [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}, 
-# {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}]
 
-# # выход функции (если вторым аргументов передано 'CANCELED')
-# [{'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, 
-# {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
-
-# написать функцию, которая принимает на вход список словарей и возвращает новый список, в котором исходные словари отсортированы по убыванию даты (ключ 
-# date
-# ). Функция принимает два аргумента, второй необязательный задает порядок сортировки (убывание, возрастание)
-# # вход функции
-# [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}, 
-# {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}, 
-# {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, 
-# {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
-
-# # выход функции (сортировка по убыванию, т.е. сначала самые последние операции)
-# [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}, 
-# {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}, 
-# {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, 
-# {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}]
-
-# Критерии решения:
-# Функции соответствуют PEP8, имеют аннотации типов, корректный docstring
-# Проект выложен на github
-# Линтер 
-# flake8
-#  не выдает ошибок
-# mypy
-#  не выдает ошибок
-
-def get_state_dictionary(state_list: list[dict], state: str = 'EXECUTED') -> list[dict]:
+def get_state_dictionary(state_list: list[dict], state: str = "EXECUTED") -> list[dict]:
     """
     Функция принимает на вход список словарей и значение для ключа state со значением по умолчанию EXECUTED
     и возвращает новый список, содержащий только те словари,
     у которых ключ state содержит переданное в функцию значение
 
-    :param state_list: список словарей
-    :param state: параметр фильтрации со значением по умолчанию EXECUTED
-    :return: новый список, содержащий только те словари,
+    :param state_list: Список словарей
+    :param state: Параметр фильтрации со значением по умолчанию EXECUTED
+    :return: Новый список, содержащий только те словари,
     у которых ключ state содержит переданное в функцию значение
     """
-    result = [state_dict for state_dict in state_list if state_dict['state'] == state.upper()]
+    result = [state_dict for state_dict in state_list if state_dict["state"] == state.upper()]
     return result
+
 
 def get_list_sorted_date(state_list: list[dict], sort_reverse: bool = True) -> list[dict]:
     """
     Функция принимает на вход список словарей и возвращает новый список,
     в котором исходные словари отсортированы по убыванию даты
 
-    :param state_list: список словарей
-    :param sort_reverse: параметр реверса сортировки, по умолчанию True
-    :return: отсотированный список
+    :param state_list: Список словарей
+    :param sort_reverse: Параметр реверса сортировки, по умолчанию True
+    :return: Отсотированный список
     """
-    result = sorted(state_list, key=lambda x: x['date'], reverse=sort_reverse)
+    result = sorted(state_list, key=lambda x: x["date"], reverse=sort_reverse)
     return result
 
 
-rrr = [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}, 
-        {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}, 
-        {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, 
-        {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
-
-print(get_state_dictionary(rrr, state='CANceLED'))
-print(get_list_sorted_date(rrr))
+print(get_state_dictionary(test_operation_info, state="CANceLED"))
+print(get_list_sorted_date(test_operation_info))

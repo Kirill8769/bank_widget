@@ -21,7 +21,7 @@ def get_clean_date(dirty_date: str) -> str | None:
     """
     Преобразует строку даты в формате ISO в формат "DD.MM.YYYY".
 
-    :param: dirty_date: Входная строка с датой в формате ISO.
+    :param dirty_date: dirty_date: Входная строка с датой в формате ISO.
     :return: Отформатированная строка даты в формате "DD.MM.YYYY".
     """
     try:
