@@ -3,7 +3,8 @@ from test_data import test_operation_info
 
 def get_state_dictionary(state_list: list[dict], state: str = "EXECUTED") -> list[dict]:
     """
-    Функция принимает на вход список словарей и значение для ключа state со значением по умолчанию EXECUTED
+    Функция принимает на вход список словарей
+    и значение для ключа state со значением по умолчанию EXECUTED
     и возвращает новый список, содержащий только те словари,
     у которых ключ state содержит переданное в функцию значение
 
