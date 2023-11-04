@@ -11,12 +11,14 @@ def get_hidden_info(info: str) -> str:
     :param info: Строка, содержащая информацию о карте или счёте.
     :return: Обработанная строка с скрытой конфиденциальной информацией.
     """
-    if not isinstance(info, str):
-        raise TypeError('Принимается только тип str')
-    name_info = " ".join(info.split()[0:-1])
-    num_info = info.split()[-1]
-    hidden_num_info = get_mask_card(num_info) if len(num_info) == 16 else get_mask_invoice(num_info)
-    return name_info + " " + hidden_num_info
+    try:
+        name_info = " ".join(info.split()[0:-1])
+        num_info = info.split()[-1]
+        hidden_num_info = get_mask_card(num_info) if len(num_info) == 16 else get_mask_invoice(num_info)
+        return name_info + " " + hidden_num_info
+    except Exception as ex:
+        print(f'Error get hidden info: {ex}')
+        return None
 
 
 def get_clean_date(dirty_date: str) -> str | None:

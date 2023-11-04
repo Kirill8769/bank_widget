@@ -1,4 +1,4 @@
-from test_data import test_operation_info
+from src.test_data import test_operation_info
 
 
 def get_state_dictionary(state_list: list[dict], state: str = "EXECUTED") -> list[dict]:
@@ -13,8 +13,12 @@ def get_state_dictionary(state_list: list[dict], state: str = "EXECUTED") -> lis
     :return: Новый список, содержащий только те словари,
     у которых ключ state содержит переданное в функцию значение
     """
-    result = [state_dict for state_dict in state_list if state_dict["state"] == state.upper()]
-    return result
+    try:
+        result = [state_dict for state_dict in state_list if state_dict["state"] == state.upper()]
+        return result
+    except Exception as ex:
+        print(f'Error get_state_dictionary: {ex}')
+        return None
 
 
 def get_list_sorted_date(state_list: list[dict], sort_reverse: bool = True) -> list[dict]:
@@ -26,8 +30,12 @@ def get_list_sorted_date(state_list: list[dict], sort_reverse: bool = True) -> l
     :param sort_reverse: Параметр реверса сортировки, по умолчанию True
     :return: Отсотированный список
     """
-    result = sorted(state_list, key=lambda x: x["date"], reverse=sort_reverse)
-    return result
+    try:
+        result = sorted(state_list, key=lambda x: x["date"], reverse=sort_reverse)
+        return result
+    except Exception as ex:
+        print(f'Error get_list_sorted_date: {ex}')
+        return None
 
 
 print(get_state_dictionary(test_operation_info, state="CANceLED"))

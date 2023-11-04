@@ -5,9 +5,12 @@ def get_mask_card(card: str) -> str:
     :param card: Номер кредитной карты для маскирования (целое число).
     :return: Маскированный номер кредитной карты.
     """
-    mask_card = card[0:4] + " " + card[4:6] + "** **** " + card[-4::]
-    return mask_card
-
+    try:
+        mask_card = card[0:4] + " " + card[4:6] + "** **** " + card[-4::]
+        return mask_card
+    except Exception as ex:
+        print(f'Error get_mask_card: {ex}')
+        return None
 
 def get_mask_invoice(invoice: str) -> str:
     """
@@ -16,5 +19,9 @@ def get_mask_invoice(invoice: str) -> str:
     :param invoice: Номер счета для маскирования (целое число).
     :return: Маскированный номер счета.
     """
-    mask_invoice = "**" + invoice[-4::]
-    return mask_invoice
+    try:
+        mask_invoice = "**" + invoice[-4::]
+        return mask_invoice
+    except Exception as ex:
+        print(f'Error get_mask_invoice: {ex}')
+        return None
