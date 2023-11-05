@@ -22,8 +22,8 @@ def test_get_hidden_info_correct(info: str, expected: str) -> None:
     assert get_hidden_info(info) == expected
 
 
-def test_get_hidden_info_empty_and_uncorrect(coll: Any) -> None:
-    assert get_hidden_info(coll) is None
+def test_get_hidden_info_empty_and_uncorrect(coll: Any) -> str:
+    assert get_hidden_info(coll) == ""
 
 
 @pytest.mark.parametrize(

@@ -17,8 +17,8 @@ def test_get_mask_card_correct(info: str, expected: str) -> None:
     assert get_mask_card(info) == expected
 
 
-def test_get_mask_card_empty_and_uncorrect(coll: Any) -> None:
-    assert get_mask_card(coll) is None
+def test_get_mask_card_empty_and_uncorrect(coll: Any) -> str:
+    assert get_mask_card(coll) == ""
 
 
 @pytest.mark.parametrize("info, expected", [("73654108430135874305", "**4305"), ("35383033474447895560", "**5560")])
@@ -26,5 +26,5 @@ def test_get_mask_invoice_correct(info: str, expected: str) -> None:
     assert get_mask_invoice(info) == expected
 
 
-def test_get_mask_invoice_empty_and_uncorrect(coll: Any) -> None:
-    assert get_mask_invoice(coll) is None
+def test_get_mask_invoice_empty_and_uncorrect(coll: Any) -> str:
+    assert get_mask_invoice(coll) == ""
