@@ -1,7 +1,4 @@
-from src.test_data import test_operation_info
-
-
-def get_state_dictionary(state_list: list[dict], state: str = "EXECUTED") -> list[dict]:
+def get_state_dictionary(state_list: list[dict], state: str = "EXECUTED") -> list[dict] | None:
     """
     Функция принимает на вход список словарей
     и значение для ключа state со значением по умолчанию EXECUTED
@@ -17,11 +14,11 @@ def get_state_dictionary(state_list: list[dict], state: str = "EXECUTED") -> lis
         result = [state_dict for state_dict in state_list if state_dict["state"] == state.upper()]
         return result
     except Exception as ex:
-        print(f'Error get_state_dictionary: {ex}')
+        print(f"Error get_state_dictionary: {ex}")
         return None
 
 
-def get_list_sorted_date(state_list: list[dict], sort_reverse: bool = True) -> list[dict]:
+def get_list_sorted_date(state_list: list[dict], sort_reverse: bool = True) -> list[dict] | None:
     """
     Функция принимает на вход список словарей и возвращает новый список,
     в котором исходные словари отсортированы по убыванию даты
@@ -34,9 +31,5 @@ def get_list_sorted_date(state_list: list[dict], sort_reverse: bool = True) -> l
         result = sorted(state_list, key=lambda x: x["date"], reverse=sort_reverse)
         return result
     except Exception as ex:
-        print(f'Error get_list_sorted_date: {ex}')
+        print(f"Error get_list_sorted_date: {ex}")
         return None
-
-
-print(get_state_dictionary(test_operation_info, state="CANceLED"))
-print(get_list_sorted_date(test_operation_info))

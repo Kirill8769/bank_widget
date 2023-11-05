@@ -17,8 +17,8 @@ def get_hidden_info(info: str) -> str:
         hidden_num_info = get_mask_card(num_info) if len(num_info) == 16 else get_mask_invoice(num_info)
         return name_info + " " + hidden_num_info
     except Exception as ex:
-        print(f'Error get hidden info: {ex}')
-        return None
+        print(f"Error get_hidden_info: {ex}")
+        return ""
 
 
 def get_clean_date(dirty_date: str) -> str | None:
