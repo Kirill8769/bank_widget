@@ -6,8 +6,6 @@ def main() -> None:
     """
     Главная функция, которая обрабатывает
     информацию в `test_widget_info` и выводит скрытую информацию.
-
-    :return: None
     """
     for info in test_widget_info:
         print(get_hidden_info(info=info))

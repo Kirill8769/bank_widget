@@ -9,8 +9,9 @@ def get_mask_card(card: str) -> str:
         mask_card = card[0:4] + " " + card[4:6] + "** **** " + card[-4::]
         return mask_card
     except Exception as ex:
-        print(f'Error get_mask_card: {ex}')
-        return None
+        print(f"Error get_mask_card: {ex}")
+        return ""
+
 
 def get_mask_invoice(invoice: str) -> str:
     """
@@ -23,5 +24,5 @@ def get_mask_invoice(invoice: str) -> str:
         mask_invoice = "**" + invoice[-4::]
         return mask_invoice
     except Exception as ex:
-        print(f'Error get_mask_invoice: {ex}')
-        return None
+        print(f"Error get_mask_invoice: {ex}")
+        return ""
