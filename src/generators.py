@@ -1,7 +1,7 @@
 from typing import Generator
 
 
-def filter_by_currency(transactions_list: list[dict], currency: str) -> Generator | dict:
+def filter_by_currency(transactions_list: list[dict], currency: str) -> Generator:
     """
     Фильтрует список транзакций на основе указанной валюты.
 
@@ -10,13 +10,9 @@ def filter_by_currency(transactions_list: list[dict], currency: str) -> Generato
 
     :yield: Генератор возвращает транзакции, у которых валюта совпадает с указанной.
     """
-    try:
-        for transaction in transactions_list:
-            if transaction["operationAmount"]["currency"]["name"] == currency:
-                yield transaction
-    except Exception as ex:
-        print(f"Error filter_by_currency: {ex}")
-        return {}
+    for transaction in transactions_list:
+        if transaction["operationAmount"]["currency"]["name"] == currency:
+            yield transaction
 
 
 def transaction_descriptions(transactions_list: list[dict]) -> Generator:
@@ -27,12 +23,8 @@ def transaction_descriptions(transactions_list: list[dict]) -> Generator:
 
     :yield: Генератор возвращает описания транзакций в виде строк.
     """
-    try:
-        for transaction in transactions_list:
-            yield transaction["description"]
-    except Exception as ex:
-        print(f"Error transaction_descriptions: {ex}")
-        return ""
+    for transaction in transactions_list:
+        yield transaction["description"]
 
 
 def card_number_generator(start: int, stop: int) -> Generator:
