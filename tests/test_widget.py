@@ -1,12 +1,10 @@
-from typing import Any
-
 import pytest
 
 from src.widget import get_clean_date, get_hidden_info
 
 
 @pytest.fixture
-def coll() -> list:
+def data_incorrect():
     return ["One", True, 3, [1, "hello", [0]], "hi", {}, "", [], False]
 
 
@@ -18,20 +16,20 @@ def coll() -> list:
         ("Visa Platinum 8990922113665229", "Visa Platinum 8990 92** **** 5229"),
     ],
 )
-def test_get_hidden_info_correct(info: str, expected: str) -> None:
+def test_get_hidden_info_correct(info, expected):
     assert get_hidden_info(info) == expected
 
 
-def test_get_hidden_info_empty_and_uncorrect(coll: Any) -> str:
-    assert get_hidden_info(coll) == ""
+def test_get_hidden_info_empty_and_incorrect(data_incorrect):
+    assert get_hidden_info(data_incorrect) == ""
 
 
 @pytest.mark.parametrize(
     "test_date, expected", [("2018-07-11T02:26:18.671407", "11.07.2018"), ("2023-11-04", "04.11.2023")]
 )
-def test_get_clean_date_correct_date(test_date: str, expected: str) -> None:
+def test_get_clean_date_correct_date(test_date, expected):
     assert get_clean_date(test_date) == expected
 
 
-def test_get_clean_date_empty_and_uncorrect(coll: Any) -> None:
-    assert get_clean_date(coll) is None
+def test_get_clean_date_empty_and_incorrect(data_incorrect):
+    assert get_clean_date(data_incorrect) is None
