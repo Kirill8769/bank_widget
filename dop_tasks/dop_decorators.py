@@ -4,7 +4,10 @@ from typing import Any, Callable
 
 def memoized(cache_count: int) -> Callable:
     """
-    Пока никакого описания тут нет
+    Декоратор для кэширования результатов функции с ограниченным количеством элементов в кэше.
+
+    :param cache_count: Максимальное количество элементов в кэше.
+    :return: Декорированная функция.
     """
     cache: dict[tuple, Any] = {}
 

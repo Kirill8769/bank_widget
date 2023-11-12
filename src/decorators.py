@@ -6,7 +6,10 @@ from typing import Any, Callable
 
 def log(filename: str | None = None) -> Callable:
     """
-    Пока никакого описания тут нет
+    Декоратор для логирования результатов выполнения функции с записью в файл или выводом в консоль.
+
+    :param filename: Имя файла для записи логов.
+    :return: Декорированная функция.
     """
 
     def wrapper(func: Callable) -> Callable:
