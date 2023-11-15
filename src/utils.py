@@ -1,31 +1,22 @@
 import json
-import os
+from typing import Any
 
-from src.decorators import log
 
-#@log("mylog.log")
-def get_transactions(filepath: str) -> list[dict]:
+def get_transactions(filepath: str) -> Any:
     try:
         with open(filepath, "r", encoding="UTF-8") as file:
             transactions = json.load(file)
-            print(transactions)
             return transactions
-    except:
-        print('error')
+    except Exception:
         return []
 
 
-def get_sum_transaction(transaction):
-    currency = transaction["operationAmount"]["currency"]["code"]
-    result = transaction["operationAmount"]["amount"]
-    print(currency, result)
-
-
-path_project = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-filepath = os.path.join(path_project, "data", "operations.json") #  operations    test
-
-
-transactions = get_transactions(filepath)
-
-for tr in transactions:
-    get_sum_transaction(tr)
+def get_amount_transaction(transaction: dict) -> float | str | Exception:
+    try:
+        currency: str = transaction["operationAmount"]["currency"]["code"]
+        amount: str = transaction["operationAmount"]["amount"]
+        if currency == "RUB":
+            return float(amount)
+        return ValueError("Транзакция выполнена не в рублях. Укажите транзакцию в рублях")
+    except Exception as ex:
+        return f"{ex.__class__.__name__}: {ex}"
