@@ -24,7 +24,7 @@ def get_amount_transaction(transaction: dict) -> float | str | Exception:
         return f"{ex.__class__.__name__}: {ex}"
 
 
-def get_actual(currency: str) -> float | list:
+def get_actual_currency(currency: str) -> float | list:
     try:
         url = "https://www.cbr-xml-daily.ru/daily_json.js"
         response = requests.get(url)
