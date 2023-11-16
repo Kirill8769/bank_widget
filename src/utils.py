@@ -1,6 +1,8 @@
 import json
 from typing import Any
 
+import requests
+
 
 def get_transactions(filepath: str) -> Any:
     try:
@@ -20,3 +22,25 @@ def get_amount_transaction(transaction: dict) -> float | str | Exception:
         return ValueError("Транзакция выполнена не в рублях. Укажите транзакцию в рублях")
     except Exception as ex:
         return f"{ex.__class__.__name__}: {ex}"
+
+
+def get_actual(currency: str) -> float | list:
+    try:
+        url = "https://www.cbr-xml-daily.ru/daily_json.js"
+        response = requests.get(url)
+        if response.status_code == 200:
+            currency_info = response.json()
+            return currency_info["Valute"][currency]["Value"]
+        return []
+    
+    except KeyError:
+        return f"KeyError: ..."
+    
+    except requests.exceptions.JSONDecodeError:
+        return f"JSONDecodeError: ..."
+    
+    except Exception as ex:
+        return f"{ex.__class__.__name__}: {ex}"
+    
+        
+print(get_actual("EUR"))

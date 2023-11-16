@@ -34,3 +34,13 @@ def log(filename: str | None = None) -> Callable:
         return inner
 
     return wrapper
+
+
+def retry(repeat: int):
+    def wrapper(func):
+        pass
+        @wraps(func)
+        def inner(*args, **kwargs):
+            pass
+        return inner
+    return wrapper
