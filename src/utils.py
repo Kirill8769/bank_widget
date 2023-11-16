@@ -43,4 +43,4 @@ def get_actual_currency(currency: str) -> float | list:
         return f"{ex.__class__.__name__}: {ex}"
     
         
-print(get_actual("EUR"))
+print(get_actual_currency("EUR"))
