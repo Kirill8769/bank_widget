@@ -3,6 +3,8 @@ from typing import Any
 
 import requests
 
+from src.decorators import retry
+
 
 def get_transactions(filepath: str) -> Any:
     try:
@@ -26,9 +28,10 @@ def get_amount_transaction(transaction: dict) -> float | str | Exception:
         return f"{ex.__class__.__name__}: {ex}"
 
 
+@retry()
 def get_actual_currency(currency: str) -> Any:
     try:
-        url = "https://www.cbr-xml-daily.ru/daily_json.js"
+        url = "https://www.example-invalid-domain.com"#"https://www.cbr-xml-daily.ru/daily_json.js"
         response = requests.get(url)
         if response.status_code == 200:
             currency_info = response.json()
@@ -41,3 +44,6 @@ def get_actual_currency(currency: str) -> Any:
 
     except Exception as ex:
         return f"{ex.__class__.__name__}: {ex}"
+
+
+print(get_actual_currency("USD"))
