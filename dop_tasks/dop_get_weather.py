@@ -1,34 +1,43 @@
-import requests
 import json
+import os
+from datetime import datetime
+
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+api_key = os.getenv("WEATHER_API")
+
+print(api_key)
 
 
-def get_weather(city: str):
-    params_coordinates = {"q": "Tver", "appid": "f2e75f632ec10b226436cf8c9201f912"}
-    url = "http://api.openweathermap.org/geo/1.0/direct"
-    response = requests.get(url=url, params=params_coordinates)
-    ss = json.loads(response.text)[0]
+def get_weather(city: str) -> str:
+    try:
+        params = {"q": city, "appid": api_key}
+        url = "http://api.openweathermap.org/geo/1.0/direct"
+        response = requests.get(url=url, params=params)
+        if response.status_code == 200:
+            city_info = json.loads(response.text)
+        else:
+            return f"Connection Error. Status code: {response.status_code}"
 
-    print(ss["lat"], ss["lon"])
+        print(city_info)
 
-    s_lat = ss["lat"]
-    s_lon = ss["lon"]
+        print(city_info["lat"], city_info["lon"])
 
+        city_lat = city_info["lat"]
+        city_lon = city_info["lon"]
 
-    params_weather = {"lat": s_lat, "lon": s_lon, "appid": "f2e75f632ec10b226436cf8c9201f912", "units": "metric", "lang": "ru"}
-    url_2 = "https://api.openweathermap.org/data/2.5/weather"
-    response = requests.get(url=url_2, params=params_weather)
-    ss12 = json.loads(response.text)
-
-    print(ss12)
-
-# http://api.openweathermap.org/geo/1.0/reverse?lat={lat}&lon={lon}&limit={limit}&appid={API key}
-
-get_weather("dd")
-
-
-# f2e75f632ec10b226436cf8c9201f912
+        params = {"lat": city_lat, "lon": city_lon, "appid": api_key, "units": "metric"}
+        url = "https://api.openweathermap.org/data/2.5/weather"
+        response = requests.get(url=url, params=params)
+        if response.status_code == 200:
+            weather_info = json.loads(response.text)
+            return weather_info
+        else:
+            return f"Connection Error. Status code: {response.status_code}"
+    except Exception as ex:
+        return f"{ex.__class__.__name__}: {ex}"
 
 
-# info city https://openweathermap.org/api/geocoding-api
-
-# info weather https://openweathermap.org/current
+print(get_weather("Moscow"))

@@ -37,21 +37,25 @@ def log(filename: str | None = None) -> Callable:
     return wrapper
 
 
-def retry(repeats: int = 3):
-    def wrapper(func):
+def retry(repeats: int) -> Callable:
+    """
+    Декоратор, повторяющий выполнение функции в случае возникновения ошибки подключения.
+
+    :param repeats: Количество попыток выполнения функции.
+    :return: Декорированная функция.
+    """
+
+    def wrapper(func: Callable) -> Callable:
         @wraps(func)
-        def inner(*args, **kwargs):
+        def inner(*args: tuple, **kwargs: dict) -> Any:
             for i in range(repeats):
-                print(i)
-                try:
-                    print(11)
-                    result = func(*args, **kwargs)
-                    print(111)
-                    return result
-                except ConnectionError:
-                    print(22)
-                    time.sleep(3)
-                print(33)
+                result = func(*args, **kwargs)
+                if isinstance(result, str) and "ConnectionError" in result:
+                    time.sleep(1)
+                    continue
+                return result
             return ConnectionError("Попытки подключиться к сайту не увенчались успехом")
+
         return inner
+
     return wrapper
