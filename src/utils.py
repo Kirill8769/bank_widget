@@ -23,7 +23,7 @@ def get_transactions(filepath: str) -> Any:
 
 def get_amount_transaction(transaction: dict) -> Any:
     """
-    Получает транзакцию в виде словаря и возвращает сумму
+    Получает транзакцию в виде словаря и возвращает сумму.
 
     :param transaction: Информация о транзакции.
     :return: Сумма транзакции.
@@ -61,6 +61,3 @@ def get_actual_currency(currency: str) -> Any:
 
     except Exception as ex:
         return f"{ex.__class__.__name__}: {ex}"
-
-
-print(get_actual_currency("USD"))
