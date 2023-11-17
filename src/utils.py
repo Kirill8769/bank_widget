@@ -28,7 +28,7 @@ def get_amount_transaction(transaction: dict) -> float | str | Exception:
         return f"{ex.__class__.__name__}: {ex}"
 
 
-@retry()
+#@retry(2)
 def get_actual_currency(currency: str) -> Any:
     try:
         url = "https://www.example-invalid-domain.com"#"https://www.cbr-xml-daily.ru/daily_json.js"

@@ -4,8 +4,6 @@ from datetime import datetime
 from functools import wraps
 from typing import Any, Callable
 
-import requests
-
 
 def log(filename: str | None = None) -> Callable:
     """
@@ -43,12 +41,17 @@ def retry(repeats: int = 3):
     def wrapper(func):
         @wraps(func)
         def inner(*args, **kwargs):
-            for _ in range(repeats):
+            for i in range(repeats):
+                print(i)
                 try:
+                    print(11)
                     result = func(*args, **kwargs)
+                    print(111)
                     return result
                 except ConnectionError:
-                    time.sleep(1)
+                    print(22)
+                    time.sleep(3)
+                print(33)
             return ConnectionError("Попытки подключиться к сайту не увенчались успехом")
         return inner
     return wrapper
