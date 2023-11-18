@@ -48,7 +48,7 @@ def retry(repeats: int) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @wraps(func)
         def inner(*args: tuple, **kwargs: dict) -> Any:
-            for i in range(repeats):
+            for _ in range(repeats):
                 result = func(*args, **kwargs)
                 if isinstance(result, str) and "ConnectionError" in result:
                     time.sleep(1)
