@@ -11,7 +11,7 @@ def get_logger() -> logging.Logger:
     else:
         my_logger = logging.getLogger("logger")
         my_logger.setLevel("DEBUG")
-        file_handler = logging.FileHandler(filename="logging.log", encoding="UTF-8")
+        file_handler = logging.FileHandler(filename="logging.log", mode="w", encoding="UTF-8")
         file_formatter = logging.Formatter(
             "%(asctime)s %(levelname)s %(filename)s-%(funcName)s: %(message)s", datefmt="%d.%m.%Y-%H:%M:%S"
         )
