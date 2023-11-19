@@ -1,9 +1,9 @@
 import os
+from unittest.mock import Mock, patch
 
 import pytest
-from unittest.mock import patch, Mock
 
-from src.utils import get_transactions, get_amount_transaction, get_actual_currency
+from src.utils import get_actual_currency, get_amount_transaction, get_transactions
 
 path_project = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 filepath = os.path.join(path_project, "data", "operations.json")
@@ -63,10 +63,9 @@ def test_get_amount_transaction_other():
     assert str(result) == "Транзакция в указанной валюте не обрабатывается"
 
 
-@pytest.mark.parametrize("transaction, expected", [
-    ({"incorrect_key": "value"}, "KeyError"),
-    ("incorrect_type", "TypeError")
-])
+@pytest.mark.parametrize(
+    "transaction, expected", [({"incorrect_key": "value"}, "KeyError"), ("incorrect_type", "TypeError")]
+)
 def test_get_amount_transaction_key_error(transaction, expected):
     result = get_amount_transaction(transaction)
     assert expected in result
@@ -93,7 +92,7 @@ def test_get_actual_currency_valid():
 def test_get_actual_currency_invalid(mock_get):
     mock_response = Mock()
     mock_response.status_code = 200
-    mock_response.json.side_effect = KeyError('Invalid currency')
+    mock_response.json.side_effect = KeyError("Invalid currency")
     mock_get.return_value = mock_response
     assert get_actual_currency("AUD") == 'KeyError: Функция работает только с "RUB", "USD" и "EUR"'
     mock_get.assert_called_once_with("https://www.cbr-xml-daily.ru/daily_json.js")

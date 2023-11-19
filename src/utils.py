@@ -4,6 +4,7 @@ from typing import Any
 import requests
 
 from src.decorators import retry
+from src.my_logger import logger
 
 
 def get_transactions(filepath: str) -> Any:
@@ -17,7 +18,8 @@ def get_transactions(filepath: str) -> Any:
         with open(filepath, "r", encoding="UTF-8") as file:
             transactions = json.load(file)
             return transactions
-    except Exception:
+    except Exception as ex:
+        logger.error(f"{ex.__class__.__name__}: {ex}")
         return []
 
 
@@ -35,9 +37,13 @@ def get_amount_transaction(transaction: dict) -> Any:
             return float(amount)
         elif currency in ["USD", "EUR"]:
             return get_actual_currency(currency)
-        return ValueError("Транзакция в указанной валюте не обрабатывается")
+        message = "Транзакция в указанной валюте не обрабатывается"
+        logger.warning(message)
+        return ValueError(message)
     except Exception as ex:
-        return f"{ex.__class__.__name__}: {ex}"
+        error = f"{ex.__class__.__name__}: {ex}"
+        logger.error(error)
+        return error
 
 
 @retry(3)
@@ -57,7 +63,10 @@ def get_actual_currency(currency: str) -> Any:
         return []
 
     except KeyError:
+        logger.warning('Функция работает только с "RUB", "USD" и "EUR"')
         return 'KeyError: Функция работает только с "RUB", "USD" и "EUR"'
 
     except Exception as ex:
-        return f"{ex.__class__.__name__}: {ex}"
+        error = f"{ex.__class__.__name__}: {ex}"
+        logger.error(error)
+        return error
