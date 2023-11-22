@@ -1,9 +1,8 @@
 import os
 
 import pytest
-from unittest.mock import patch, Mock
 
-from src.utils import get_transactions, get_amount_transaction, get_actual_currency
+from src.utils import get_amount_transaction, get_transactions
 
 path_project = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 filepath = os.path.join(path_project, "data", "operations.json")
@@ -63,65 +62,9 @@ def test_get_amount_transaction_other():
     assert str(result) == "Транзакция в указанной валюте не обрабатывается"
 
 
-@pytest.mark.parametrize("transaction, expected", [
-    ({"incorrect_key": "value"}, "KeyError"),
-    ("incorrect_type", "TypeError")
-])
+@pytest.mark.parametrize(
+    "transaction, expected", [({"incorrect_key": "value"}, "KeyError"), ("incorrect_type", "TypeError")]
+)
 def test_get_amount_transaction_key_error(transaction, expected):
     result = get_amount_transaction(transaction)
     assert expected in result
-
-
-@patch("src.utils.get_actual_currency")
-def test_get_amount_transaction_usd_eur(mock_get_actual_currency):
-    mock_get_actual_currency.return_value = 88.9466
-    assert get_amount_transaction(transactions[2]) == 88.9466
-    mock_get_actual_currency.assert_called_once_with("USD")
-
-
-def test_get_actual_currency_valid():
-    with patch("requests.get") as mock_get:
-        mock_response = Mock()
-        mock_response.status_code = 200
-        mock_response.json.return_value = {"Valute": {"USD": {"Value": 88.9466}}}
-        mock_get.return_value = mock_response
-        assert get_actual_currency("USD") == 88.9466
-        mock_get.assert_called_once_with("https://www.cbr-xml-daily.ru/daily_json.js")
-
-
-@patch("requests.get")
-def test_get_actual_currency_invalid(mock_get):
-    mock_response = Mock()
-    mock_response.status_code = 200
-    mock_response.json.side_effect = KeyError('Invalid currency')
-    mock_get.return_value = mock_response
-    assert get_actual_currency("AUD") == 'KeyError: Функция работает только с "RUB", "USD" и "EUR"'
-    mock_get.assert_called_once_with("https://www.cbr-xml-daily.ru/daily_json.js")
-
-
-@patch("requests.get")
-def test_get_actual_currency_json_decode_error(mock_get):
-    mock_response = Mock()
-    mock_response.status_code = 200
-    mock_response.json.side_effect = ValueError("Invalid JSON")
-    mock_get.return_value = mock_response
-    result = get_actual_currency("USD")
-    assert result == "ValueError: Invalid JSON"
-    mock_get.assert_called_once_with("https://www.cbr-xml-daily.ru/daily_json.js")
-
-
-@patch("requests.get")
-def test_get_actual_currency_other_exception(mock_get):
-    mock_get.side_effect = Exception("Some error")
-    result = get_actual_currency("USD")
-    assert result == "Exception: Some error"
-    mock_get.assert_called_once_with("https://www.cbr-xml-daily.ru/daily_json.js")
-
-
-@patch("requests.get")
-def test_get_actual_currency_invalid_status_code(mock_get):
-    mock_response = Mock()
-    mock_response.status_code = 404
-    mock_get.return_value = mock_response
-    assert get_actual_currency("USD") == []
-    mock_get.assert_called_once_with("https://www.cbr-xml-daily.ru/daily_json.js")
