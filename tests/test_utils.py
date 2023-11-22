@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from src.utils import get_amount_transaction, get_transactions
+from src.utils import get_amount_transaction, get_transactions_json
 
 path_project = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 filepath = os.path.join(path_project, "data", "operations.json")
@@ -43,13 +43,13 @@ def correct_json_list():
 
 
 def test_get_transactions_correct_path():
-    result = get_transactions(filepath)
+    result = get_transactions_json(filepath)
     assert isinstance(result, list)
     assert isinstance(result[0], dict)
 
 
 def test_get_transactions_incorrect_path():
-    assert get_transactions("") == []
+    assert get_transactions_json("") == []
 
 
 def test_get_amount_transaction_rub():

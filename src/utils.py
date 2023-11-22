@@ -5,7 +5,7 @@ from src.external_api import get_actual_currency
 from src.my_logger import logger
 
 
-def get_transactions(filepath: str) -> Any:
+def get_transactions_json(filepath: str) -> Any:
     """
     Читает транзакции из файла JSON и возвращает их в виде списка.
 
