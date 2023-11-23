@@ -6,7 +6,7 @@ import pandas as pd
 filepath = os.path.join("data", "titanic.csv")
 
 
-def get_filtered_df(filepath: str) -> pd:
+def get_filtered_df(filepath: str) -> pd.DataFrame:
     """
     Функция фильтрует пассажиров, у которых цена билета больше 50 и возраст меньше 30 лет,
     затем функция сортирует отфильтрованный DataFrame по имени пассажира в алфавитном
@@ -24,7 +24,7 @@ def get_filtered_df(filepath: str) -> pd:
 # print(get_filtered_df(filepath))
 
 
-def get_groupby_json(filepath: str) -> list:
+def get_groupby_json(filepath: str) -> str:
     """
     Функция группирует пассажиров по классу и считает среднюю стоимость
     билета и количество пассажиров в каждом классе.
@@ -45,3 +45,16 @@ def get_groupby_json(filepath: str) -> list:
 # print(get_groupby_json(filepath))
 
 
+def get_survived_passengers(filepath: str) -> str:
+    """
+    Функция фильтрует пассажиров, которые выжили в катастрофе.
+
+    :param filepath: Путь к обрабатываемому файлу.
+    :return: Данные о выживших пассажирах в формате JSON.
+    """
+    df = pd.read_csv(filepath)
+    filtered_df = df[df["Survived"] == 1]
+    return filtered_df.to_json(orient="records")
+
+
+# print(get_survived_passengers(filepath))
