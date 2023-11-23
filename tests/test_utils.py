@@ -1,11 +1,17 @@
 import os
+from unittest.mock import patch
 
 import pytest
 
-from src.utils import get_amount_transaction, get_transactions_json
+from src.utils import get_amount_transaction, get_transactions_from_file
 
 path_project = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-filepath = os.path.join(path_project, "data", "operations.json")
+filepath_json = os.path.join(path_project, "test_data", "operations.json")
+filepath_csv = os.path.join(path_project, "test_data", "transactions.csv")
+filepath_xlsx = os.path.join(path_project, "test_data", "transactions_excel.xlsx")
+filepath_incorrect = os.path.join(path_project, "test_data", "incorrect_file.json")
+incorrect_format = os.path.join(path_project, "test_data", "incorrect_format.doc")
+
 transactions = [
     {
         "id": 441945886,
@@ -37,19 +43,31 @@ transactions = [
 ]
 
 
-@pytest.fixture
-def correct_json_list():
-    return transactions
-
-
-def test_get_transactions_correct_path():
-    result = get_transactions_json(filepath)
+@pytest.mark.parametrize(
+    "filepath, delimiter",
+    [
+        (filepath_json, None),
+        (filepath_csv, ";"),
+        (filepath_xlsx, None),
+    ],
+)
+@patch("src.utils.get_transactions_from_file")
+def test_get_transactions_from_file_correct_return(mock_get_transactions_from_file, filepath, delimiter):
+    mock_get_transactions_from_file.return_value = [{"transaction": 1, "message": "ok"}]
+    assert mock_get_transactions_from_file() == [{"transaction": 1, "message": "ok"}]
+    mock_get_transactions_from_file.assert_called_once_with()
+    result = get_transactions_from_file(filepath, delimiter)
     assert isinstance(result, list)
     assert isinstance(result[0], dict)
 
 
-def test_get_transactions_incorrect_path():
-    assert get_transactions_json("") == []
+def test_get_transactions_from_file_incorrect_path():
+    assert get_transactions_from_file("") == []
+    assert get_transactions_from_file(123) == []
+
+
+def test_get_transactions_from_file_incorrect_format():
+    assert get_transactions_from_file(incorrect_format) == []
 
 
 def test_get_amount_transaction_rub():
