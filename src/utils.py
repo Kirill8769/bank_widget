@@ -66,3 +66,11 @@ def get_amount_transaction(transaction: dict) -> Any:
         error = f"{ex.__class__.__name__}: {ex}"
         logger.error(error)
         return error
+
+
+def get_result_answer(
+        answer: str,
+        words_yes: list = ["yes", "y", "да", "д"],
+        words_no: list = ["no", "n", "нет", "н"]
+):
+    pass
